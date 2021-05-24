@@ -5,7 +5,6 @@ Created on Sun May  9 13:42:59 2021
 @author: kunal
 """
 import requests
-#import json
 import time
 from playsound import playsound
 import datetime
@@ -41,6 +40,7 @@ def check_appointment(pinCode):
                 )
                 ):
                 print()
+                print (datetime.datetime.now())
                 print ("name: ",session["name"])
                 print ("pincode: ",session["pincode"])
                 print("available:", session["available_capacity"])
