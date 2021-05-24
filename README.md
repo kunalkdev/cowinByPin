@@ -1,17 +1,20 @@
 RUN SAMPLE:
-python .\cowin.py
-Enter the PinCode in comma seperated e.g. single pincode 110011 - more than one 110011,110022,110023  : 122017
-Enter 1 for dose1 2 for dose2 alert : 2
-Checking for dates ['24-05-2021', '25-05-2021', '26-05-2021'] dose 2 pincode(s) ['122017']
+python .\cowin.py <br />
 
-2021-05-24 16:58:11.223592
-name:  Columbia Asia
-pincode:  122017
-available: 298
-available dose 1: 0
-available dose 2: 298
-date:  24-05-2021
-<<Plays sound for alert>>
+Enter the PinCode in comma seperated e.g. single pincode 110011 - more than one 110011,110022,110023  : 122017 <br />
+
+Enter 1 for dose1 2 for dose2 alert : 2 <br />
+
+Checking for dates ['24-05-2021', '25-05-2021', '26-05-2021'] dose 2 pincode(s) ['122017'] <br />
+
+2021-05-24 16:58:11.223592 <br />
+name:  Columbia Asia <br />
+pincode:  122017 <br />
+available: 298 <br />
+available dose 1: 0 <br />
+available dose 2: 298 <br />
+date:  24-05-2021 <br />
+<<Plays sound for alert>> <br />
 
 
 SETUP:
