@@ -21,6 +21,8 @@ headers_dict= {
 dates = []
 pinCodes = []
 dose=1
+vaccine_pref='any'
+price_pref='any'
 
 def check_appointment(pinCode):
     base_url="https://cdn-api.co-vin.in/api/v2"
@@ -34,15 +36,33 @@ def check_appointment(pinCode):
         for session in sessions["sessions"]:
             if ((session["min_age_limit"] == 18) and 
                 (
-                (dose == 1 and session["available_capacity_dose1"] > 0)
-                or
-                (dose == 2 and session["available_capacity_dose2"] > 0)
-                )
-                ):
+                    (dose == 1 and session["available_capacity_dose1"] > 0)
+                    or
+                    (dose == 2 and session["available_capacity_dose2"] > 0)
+                ) and
+                (
+                    (vaccine_pref =='any')
+                    or
+                    (vaccine_pref =='COVISHIELD' and str(session["vaccine"]).upper().startswith('COVISHIELD'))
+                    or
+                    (vaccine_pref =='COVAXIN' and str(session["vaccine"]).upper().startswith('COVAXIN'))
+                    or
+                    (vaccine_pref =='SPUTNIK' and str(session["vaccine"]).upper().startswith('SPUTNIK'))
+                ) and
+                (
+                    (price_pref == 'any')
+                    or
+                    (price_pref == 'paid' and str(session["fee_type"]).lower() == 'paid')
+                    or
+                    (price_pref == 'free' and str(session["fee_type"]).lower() == 'free')
+                ) 
+            ):
                 print()
                 print (datetime.datetime.now())
                 print ("name: ",session["name"])
                 print ("pincode: ",session["pincode"])
+                print ("vaccine: ",session["vaccine"])
+                print ("fee_type: ",session["fee_type"])
                 print("available:", session["available_capacity"])
                 print("available dose 1:", session["available_capacity_dose1"])
                 print("available dose 2:", session["available_capacity_dose2"])
@@ -80,18 +100,32 @@ try:
         print ("Invalid pincode(s)")
         sys.exit()
     
-    doseDetail = input ("Enter 1 for dose1 2 for dose2 alert : ")
+    vaccine = input ("Vaccine preference - 1 for covishield, 2 for covaxin, 3 for sputnik, 4 for any : ")
+    if (vaccine.strip() == '1'):
+        vaccine_pref = 'COVISHIELD'
+    elif  (vaccine.strip() == '2'):
+        vaccine_pref = 'COVAXIN'
+    elif  (vaccine.strip() == '3'):
+        vaccine_pref = 'SPUTNIK'
+        
+    price = input ("Cost Preference - 1 for paid only, 2 for free only, 3 for any : ")
+    if (price.strip() == '1'):
+        price_pref = 'paid'
+    elif (price.strip() == '2'):
+        price_pref = 'free'
+    
+    doseDetail = input ("Enter 1 for dose1, 2 for dose2 alert : ")
     if (doseDetail.strip().lower() == '1'):
         dose=1
     elif (doseDetail.strip().lower() == '2'):
         dose=2
     else:
-        print ("Enter either 1 for dose1 or 2 for dose2")
+        print ("Enter either 1 for dose1 or 2 for dose2 : ")
         sys.exit()
         
     getDates()
     
-    print ("Checking for dates "+str(dates)+" dose "+str(dose)+ " pincode(s) "+str(pinCodes))
+    print ("Checking for dates -"+str(dates)+" dose -"+str(dose)+ " pincode(s) -"+str(pinCodes)+" vaccine-"+vaccine_pref+" cost preference-"+price_pref)
     
     while (1):
         for pinCode in pinCodes:
