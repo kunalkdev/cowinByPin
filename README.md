@@ -6,3 +6,4 @@ SETUP
 2. If you don't have setup of python, recommend downloading anaconda package - https://www.anaconda.com/products/individual
 3. install playsound playsound - Ananconda powershell prompt - $ pip install playsound 
 4. Go to folder having cowin.py - run python cowin.py
+5. Recommended to change power option to disable sleep - set sleep timer to never. So, that script always get cpu and keep running in case of inactivity of system too.
