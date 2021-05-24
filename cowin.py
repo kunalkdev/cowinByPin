@@ -100,7 +100,7 @@ try:
         print ("Invalid pincode(s)")
         sys.exit()
     
-    vaccine = input ("Vaccine preference - 1 for covishield, 2 for covaxin, 3 for sputnik, 4 for any : ")
+    vaccine = input ("Vaccine preference - 0 for any, 1 for covishield, 2 for covaxin, 3 for sputnik : ")
     if (vaccine.strip() == '1'):
         vaccine_pref = 'COVISHIELD'
     elif  (vaccine.strip() == '2'):
@@ -108,7 +108,7 @@ try:
     elif  (vaccine.strip() == '3'):
         vaccine_pref = 'SPUTNIK'
         
-    price = input ("Cost Preference - 1 for paid only, 2 for free only, 3 for any : ")
+    price = input ("Cost Preference - 0 for any, 1 for paid only, 2 for free only : ")
     if (price.strip() == '1'):
         price_pref = 'paid'
     elif (price.strip() == '2'):
