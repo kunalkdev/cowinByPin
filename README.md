@@ -1,5 +1,4 @@
 RUN SAMPLE:
-
 python .\cowin.py
 Enter the PinCode in comma seperated e.g. single pincode 110011 - more than one 110011,110022,110023  : 122017
 Enter 1 for dose1 2 for dose2 alert : 2
