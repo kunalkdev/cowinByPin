@@ -58,6 +58,7 @@ def check_appointment(pinCode):
                 ) 
             ):
                 print()
+                playsound("CarAlarm.mp3")
                 print (datetime.datetime.now())
                 print ("name: ",session["name"])
                 print ("pincode: ",session["pincode"])
@@ -68,7 +69,7 @@ def check_appointment(pinCode):
                 print("available dose 2:", session["available_capacity_dose2"])
                 print("date: ",session["date"])
                 #if (session["available_capacity"] > 10):
-                playsound("CarAlarm.mp3")
+                #playsound("CarAlarm.mp3")
 
 
 def pinCodeNotValid (pinCodeInput):
