@@ -131,7 +131,10 @@ try:
         for pinCode in pinCodes:
             check_appointment(pinCode)
 except:
-    print ("error occured")
-    traceback.print_exc()
+    print()
+    print()
+    print ("stopping script ...")
+    #print ("error occured")
+    #traceback.print_exc()
 finally:
     waitClose = input ("Press enter to exit ...")
