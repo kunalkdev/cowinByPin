@@ -23,6 +23,7 @@ pinCodes = []
 dose=1
 vaccine_pref='any'
 price_pref='any'
+min_age_limit=18
 
 def check_appointment(pinCode):
     base_url="https://cdn-api.co-vin.in/api/v2"
@@ -38,7 +39,13 @@ def check_appointment(pinCode):
                 continue
             sessions = response.json()
             for session in sessions["sessions"]:
-                if ((session["min_age_limit"] == 18) and 
+                if (
+                    (
+                        (18 == min_age_limit and session["min_age_limit"] == 18)
+                        or
+                        (45 == min_age_limit and session["min_age_limit"] == 45)
+                    )
+                    and 
                     (
                         (dose == 1 and session["available_capacity_dose1"] > 0)
                         or
@@ -62,7 +69,8 @@ def check_appointment(pinCode):
                     ) 
                 ):
                     print()
-                    playsound("CarAlarm.mp3")
+                    if (session["available_capacity"] > 10):
+                        playsound("CarAlarm.mp3")
                     print (datetime.datetime.now())
                     print ("name: ",session["name"])
                     print ("pincode: ",session["pincode"])
@@ -72,8 +80,8 @@ def check_appointment(pinCode):
                     print("available dose 1:", session["available_capacity_dose1"])
                     print("available dose 2:", session["available_capacity_dose2"])
                     print("date: ",session["date"])
-                    #if (session["available_capacity"] > 10):
-                    #playsound("CarAlarm.mp3")
+                        #if (session["available_capacity"] > 10):
+                        #playsound("CarAlarm.mp3")
         except:
             pass
             #traceback.print_exc()
@@ -103,6 +111,12 @@ def getDates():
     dates.append(d3)
 
 try:
+    age_input = input ("Enter Age Category 1. under 45 2. 45 and above : ")
+    if (age_input.strip() == '2'):
+        min_age_limit = 45
+    else:
+        min_age_limit = 18
+    
     pinCodeInput = input ("Enter the PinCode in comma seperated e.g. single pincode 110011 - more than one 110011,110022,110023  : ")
     if (pinCodeNotValid(pinCodeInput.strip())):
         print ("Invalid pincode(s)")
@@ -133,7 +147,7 @@ try:
         
     getDates()
     
-    print ("Checking for dates -"+str(dates)+" dose -"+str(dose)+ " pincode(s) -"+str(pinCodes)+" vaccine-"+vaccine_pref+" cost preference-"+price_pref)
+    print ("Checking for dates -"+str(dates)+" dose -"+str(dose)+ " pincode(s) -"+str(pinCodes)+" vaccine-"+vaccine_pref+" cost preference-"+price_pref+" min age "+str(min_age_limit))
     
     while (1):
         for pinCode in pinCodes:
@@ -143,6 +157,6 @@ except:
     print()
     print ("stopping script ...")
     print ("error occured")
-    #traceback.print_exc()
+    traceback.print_exc()
 finally:
     waitClose = input ("Press enter to exit ...")

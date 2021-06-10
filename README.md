@@ -1,11 +1,12 @@
 RUN SAMPLE:<br />
 <br />
 python .\cowin.py <br />
+Enter Age Category 1. under 45 2. 45 and above : 1 <br />
 Enter the PinCode in comma seperated e.g. single pincode 110011 - more than one 110011,110022,110023  : 122001 <br />
 Vaccine preference - 0 for any, 1 for covishield, 2 for covaxin, 3 for sputnik : 1<br />
 Cost Preference - 0 for any, 1 for paid only, 2 for free only : 0<br />
 Enter 1 for dose1, 2 for dose2 alert : 2<br />
-Checking for dates -['24-05-2021', '25-05-2021', '26-05-2021'] dose -2 pincode(s) -['122001'] vaccine-COVISHIELD cost preference-any<br />
+Checking for dates -['24-05-2021', '25-05-2021', '26-05-2021'] dose -2 pincode(s) -['122001'] vaccine-COVISHIELD cost preference-any min age 18 <br />
 
 2021-05-24 21:31:21.267308<br />
 name:  Max Hospital<br />
@@ -29,4 +30,3 @@ SETUP:
 
 LIMITATIONS:
 1. There is a limit of 100 api calls per 5 mins per IP. As script run after every 3 seconds. Please run it only in 1 machine in one wifi.
-2. This is currently only for under 45 age category.
