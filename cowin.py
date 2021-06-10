@@ -31,45 +31,52 @@ def check_appointment(pinCode):
         final_url=base_url+session_url+pinCode+"&date="+checkdate;
         #print (final_url)
         time.sleep(3)
-        response = requests.get(final_url, headers=headers_dict)
-        sessions = response.json()
-        for session in sessions["sessions"]:
-            if ((session["min_age_limit"] == 18) and 
-                (
-                    (dose == 1 and session["available_capacity_dose1"] > 0)
-                    or
-                    (dose == 2 and session["available_capacity_dose2"] > 0)
-                ) and
-                (
-                    (vaccine_pref =='any')
-                    or
-                    (vaccine_pref =='COVISHIELD' and str(session["vaccine"]).upper().startswith('COVISHIELD'))
-                    or
-                    (vaccine_pref =='COVAXIN' and str(session["vaccine"]).upper().startswith('COVAXIN'))
-                    or
-                    (vaccine_pref =='SPUTNIK' and str(session["vaccine"]).upper().startswith('SPUTNIK'))
-                ) and
-                (
-                    (price_pref == 'any')
-                    or
-                    (price_pref == 'paid' and str(session["fee_type"]).lower() == 'paid')
-                    or
-                    (price_pref == 'free' and str(session["fee_type"]).lower() == 'free')
-                ) 
-            ):
-                print()
-                playsound("CarAlarm.mp3")
-                print (datetime.datetime.now())
-                print ("name: ",session["name"])
-                print ("pincode: ",session["pincode"])
-                print ("vaccine: ",session["vaccine"])
-                print ("fee_type: ",session["fee_type"])
-                print("available:", session["available_capacity"])
-                print("available dose 1:", session["available_capacity_dose1"])
-                print("available dose 2:", session["available_capacity_dose2"])
-                print("date: ",session["date"])
-                #if (session["available_capacity"] > 10):
-                #playsound("CarAlarm.mp3")
+        try:
+            response = requests.get(final_url, headers=headers_dict)
+            #print(response)
+            if (200 != response.status_code):
+                continue
+            sessions = response.json()
+            for session in sessions["sessions"]:
+                if ((session["min_age_limit"] == 18) and 
+                    (
+                        (dose == 1 and session["available_capacity_dose1"] > 0)
+                        or
+                        (dose == 2 and session["available_capacity_dose2"] > 0)
+                    ) and
+                    (
+                        (vaccine_pref =='any')
+                        or
+                        (vaccine_pref =='COVISHIELD' and str(session["vaccine"]).upper().startswith('COVISHIELD'))
+                        or
+                        (vaccine_pref =='COVAXIN' and str(session["vaccine"]).upper().startswith('COVAXIN'))
+                        or
+                        (vaccine_pref =='SPUTNIK' and str(session["vaccine"]).upper().startswith('SPUTNIK'))
+                    ) and
+                    (
+                        (price_pref == 'any')
+                        or
+                        (price_pref == 'paid' and str(session["fee_type"]).lower() == 'paid')
+                        or
+                        (price_pref == 'free' and str(session["fee_type"]).lower() == 'free')
+                    ) 
+                ):
+                    print()
+                    playsound("CarAlarm.mp3")
+                    print (datetime.datetime.now())
+                    print ("name: ",session["name"])
+                    print ("pincode: ",session["pincode"])
+                    print ("vaccine: ",session["vaccine"])
+                    print ("fee_type: ",session["fee_type"])
+                    print("available:", session["available_capacity"])
+                    print("available dose 1:", session["available_capacity_dose1"])
+                    print("available dose 2:", session["available_capacity_dose2"])
+                    print("date: ",session["date"])
+                    #if (session["available_capacity"] > 10):
+                    #playsound("CarAlarm.mp3")
+        except:
+            pass
+            #traceback.print_exc()
 
 
 def pinCodeNotValid (pinCodeInput):
@@ -135,7 +142,7 @@ except:
     print()
     print()
     print ("stopping script ...")
-    #print ("error occured")
+    print ("error occured")
     #traceback.print_exc()
 finally:
     waitClose = input ("Press enter to exit ...")
